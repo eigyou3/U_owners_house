@@ -323,8 +323,9 @@ html, body {
 }
 .step-body {
   padding: 4vh 10vw 8vh;
-  flex: 1; display: flex; flex-direction: column;
-  justify-content: flex-end;
+  flex-shrink: 0;
+  display: flex; flex-direction: column;
+  justify-content: flex-start;
 }
 .step-date {
   font-family: 'Cormorant Garamond', serif;
@@ -627,7 +628,7 @@ const steps = [
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 const galleryPhotos = [
   { name:'インターホン', memo:'NASTA INTERPHONE 2', src:'assets/nasta2.png' },
-  { name:'玄関ホール', memo:'', src:'assets/hall.png' },
+  { name:'ホール', memo:'TOWARDS Glanz Wall Light / Black', src:'assets/hall.png' },
 ];
 
 // ── メディアヘルパー（拡張子で自動判定）──
@@ -735,27 +736,29 @@ let raf;
 let currentSnapIdx = 0;
 
 // 全スナップ位置を取得（パネル先頭 + 各カード）
-function getSnapPositions() {
-  const positions = [];
+// スナップ位置を初期化時に一度だけ計算
+let snapPositions = [];
+function buildSnapPositions() {
+  snapPositions = [];
   let accPanel = 0;
   panels.forEach(p => {
-    // パネル先頭
-    positions.push(-accPanel);
-    // パネル内のカード
+    const header = p.querySelector('.process-header, .gallery-header');
+    const headerW = header ? header.offsetWidth : 0;
     const cards = p.querySelectorAll('.step, .g-photo');
     if (cards.length > 0) {
-      const header = p.querySelector('.process-header, .gallery-header');
-      const headerW = header ? header.offsetWidth : 0;
-      cards.forEach((card, i) => {
-        if (i === 0) return; // 先頭はパネル位置と同じ
-        const cardAbsLeft = accPanel + card.offsetLeft;
-        positions.push(-cardAbsLeft);
+      cards.forEach(card => {
+        // カードのパネル内オフセット + パネルの累積位置 - ヘッダー幅
+        const pos = -(accPanel + card.offsetLeft - headerW);
+        snapPositions.push(pos);
       });
+    } else {
+      snapPositions.push(-accPanel);
     }
     accPanel += p.offsetWidth;
   });
-  return positions;
 }
+
+function getSnapPositions() { return snapPositions; }
 
 function getMaxScroll() { return -(wrap.scrollWidth - window.innerWidth); }
 function lerp(a, b, t) { return a + (b - a) * t; }
@@ -805,10 +808,12 @@ window.addEventListener('touchend', e => {
   }
 });
 
-window.addEventListener('resize', () => { snapTo(currentSnapIdx); });
-
-// セクションインジケーター
-// セクションインジケーター削除済み
+window.addEventListener('resize', () => { buildSnapPositions(); snapTo(currentSnapIdx); });
+window.addEventListener('load',   () => { buildSnapPositions(); });
+// 画像ロード後も再計算（画像サイズが確定してoffsetLeftが安定する）
+document.querySelectorAll('img').forEach(img => {
+  img.addEventListener('load', buildSnapPositions);
+});
 
 // カスタムカーソル
 const cursor = document.getElementById('cursor');
@@ -827,11 +832,6 @@ document.addEventListener('mousemove', e => {
 document.querySelectorAll('button, .g-photo, .step').forEach(el => {
   el.addEventListener('mouseenter', () => cursor.classList.add('big'));
   el.addEventListener('mouseleave', () => cursor.classList.remove('big'));
-});
-
-// リサイズ
-window.addEventListener('resize', () => {
-  targetX = Math.max(getMaxScroll(), Math.min(0, targetX));
 });
 
 // Share
