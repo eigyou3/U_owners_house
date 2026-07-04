@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>YORISOU — komai home</title>
+<title>YORISOU_IE — komai home</title>
 <meta name="description" content="あなたの理想に、寄り添う家。YOU × 理想 ＝ YORISOU。komai homeが手がける平屋の記録。">
-<meta property="og:title" content="YORISOU — komai home">
-<meta property="og:description" content="あなたの理想に、寄り添う家。">
+<meta property="og:title" content="YORISOU_IE — komai home">
+<meta property="og:description" content="あなたの理想（想い）に、寄り添う家。">
 <meta property="og:image" content="https://eigyou3.github.io/U_owners_house/ogp.png">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
@@ -152,7 +152,7 @@ html, body {
   padding: 14vh 8vw;
   display: flex; flex-direction: column;
   justify-content: center;
-  overflow-y: auto;
+  overflow: hidden;
 }
 .concept-tag {
   font-family: 'Cormorant Garamond', serif;
@@ -628,16 +628,9 @@ html, body {
         私たち家族が叶える理想の家づくり。
 
       </p>
-      <div class="concept-anagram">
-        <span class="anagram-you">YOU</span>
-        <span class="anagram-plus">+</span>
-        <span class="anagram-risou">RISŌ<br>理想</span>
-        <span class="anagram-eq">=</span>
-        <span class="anagram-result">YORISOU</span>
-      </div>
     </div>
     <div class="concept-right">
-      <img class="concept-illust" src="assets/bokeh_mubyousokusai.jpg" alt="パース">
+      <img class="concept-illust" src="assets/bokeh_mubyousokusai.png" alt="">
     </div>
   </div>
 
@@ -685,7 +678,7 @@ html, body {
 
 <!-- STICKY FOOTER -->
 <div class="sticky-footer">
-  <span class="footer-brand">YORISOU</span>
+  <span class="footer-brand">YORISOU_IE</span>
   <div class="footer-share">
     <button class="footer-share-btn" onclick="shareX()">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.253 5.622L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
@@ -828,6 +821,22 @@ qaPanel.addEventListener('touchend', () => { qaTouch = false; });
 const galleryPhotos = [
   { name:'インターホン', memo:'NASTA INTERPHONE 2', src:'assets/nasta2.png' },
   { name:'ホール', memo:'TOWARDS Glanz Wall Light / Black', src:'assets/hall.png' },
+  { name:'框', memo:'森田アルミ工業 CAMIS', src:'assets/camis.png' },
+  { name:'ホール扉', memo:'LIXIL Raffis', src:'assets/raffis.png' },
+  { name:'配線ニッチ', memo:'Panasonic ADVANCE SERIES', src:'assets/advance.png' },
+  { name:'キッチン水栓', memo:'GROHE グースネック浄水栓', src:'assets/grohe.png' },
+  { name:'キッチン', memo:'LIXIL Noct26 リテックス', src:'assets/noct.png' },
+  { name:'キッチン食洗機', memo:'Panasonic フロントオープンタイプ', src:'assets/dishwasher.png' },
+  { name:'照明', memo:'DAIKO SpotLight', src:'assets/lighting.png' },
+  { name:'洗面化粧台', memo:'LIXIL カスタムバニティ', src:'assets/washroom.png' },
+  { name:'浴室', memo:'LIXIL リデアM', src:'assets/bathroom.png' },
+  { name:'給湯器リモコン', memo:'Rinnai Color332タイプ / Black', src:'assets/rinnai.png' },
+  { name:'食器収納', memo:'南海プライウッド フリモ', src:'assets/fremo.png' },
+  { name:'主寝室', memo:'Panasonic マイスターウッド突板', src:'assets/bedroom.png' },
+  { name:'リビング建具', memo:'LIXIL Lasissa-D Vintia-Series', src:'assets/dining.png' },
+  { name:'TV裏造作', memo:'壁掛けのTV裏は大容量収納スペースに', src:'assets/finishing_carpenter.png' },
+  { name:'玄関収納造作', memo:'外出時に使用したものは持ち込まない', src:'assets/finishing_carpenter2.png' },
+  { name:'Arigato', memo:'ご建築おめでとうございます✨️素敵なプレゼントありがとうございます♪', src:'assets/arigato.png' },
 ];
 
 // ── メディアヘルパー（拡張子で自動判定）──
@@ -941,12 +950,16 @@ function getSnapPositions() {
   panels.forEach(p => {
     const cards = p.querySelectorAll('.step, .g-photo');
     if (cards.length > 0) {
-      // カード左端が画面左端に来る位置
-      cards.forEach(card => {
-        positions.push(-(accPanel + card.offsetLeft));
+      const header = p.querySelector('.process-header, .gallery-header');
+      const headerW = header ? header.offsetWidth : 0;
+      const cardW = cards[0].offsetWidth;
+      // まずパネル先頭（ヘッダーが見える位置）
+      positions.push(-accPanel);
+      // 次に各カード（ヘッダー右端 + カード幅×枚数）
+      cards.forEach((card, i) => {
+        positions.push(-(accPanel + headerW + cardW * i));
       });
     } else {
-      // HERO・CONCEPT・QAはパネル先頭位置
       positions.push(-accPanel);
     }
     accPanel += p.offsetWidth;
