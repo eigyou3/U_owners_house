@@ -76,11 +76,13 @@ html, body {
 ══════════════ */
 .panel-hero {
   width: 100vw;
+  height: 100vh;
   background: var(--white);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 8vh 8vw;
+  overflow: hidden;
 }
 .hero-illust {
   position: absolute;
@@ -140,14 +142,17 @@ html, body {
 ══════════════ */
 .panel-concept {
   width: 100vw;
+  height: 100vh;
   background: var(--black);
   display: grid;
   grid-template-columns: 1fr 1fr;
+  overflow: hidden;
 }
 .concept-left {
   padding: 14vh 8vw;
   display: flex; flex-direction: column;
   justify-content: center;
+  overflow-y: auto;
 }
 .concept-tag {
   font-family: 'Cormorant Garamond', serif;
@@ -323,8 +328,7 @@ html, body {
 }
 .step-body {
   padding: 4vh 10vw 8vh;
-  flex-shrink: 0;
-  display: flex; flex-direction: column;
+  flex: 1; display: flex; flex-direction: column;
   justify-content: flex-start;
 }
 .step-date {
@@ -384,8 +388,7 @@ html, body {
   display: flex; align-items: stretch;
 }
 .g-photo {
-  width: 78vw; height: 100vh; flex-shrink: 0;
-  overflow: hidden;
+  width: 74vw; flex-shrink: 0;
   display: flex; flex-direction: column;
   position: relative;
   border-right: 1px solid rgba(255,255,255,.06);
@@ -403,6 +406,8 @@ html, body {
 .g-body {
   padding: 16px 10vw 20px;
   flex-shrink: 0;
+  display: flex; flex-direction: column;
+  justify-content: flex-start;
 }
 .g-name {
   font-size: 18px; font-weight: 400;
@@ -416,7 +421,9 @@ html, body {
   color: rgba(255,255,255,.5);
 }
 .g-media {
-  flex: 1; overflow: hidden; position: relative; cursor: zoom-in;
+  width: 100%; height: 45vh;
+  overflow: hidden; position: relative; cursor: zoom-in;
+  flex-shrink: 0;
 }
 .g-media img, .g-media video {
   width: 100%; height: 100%;
@@ -438,8 +445,88 @@ html, body {
 }
 
 /* ══════════════
+   QA
+══════════════ */
+.panel-qa {
+  width: 100vw;
+  background: #f2f0ec;
+  flex-shrink: 0;
+  display: flex;
+  overflow: hidden;
+}
+.qa-inner {
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+/* スクロールバー非表示 */
+.qa-inner::-webkit-scrollbar { display: none; }
+.qa-inner { -ms-overflow-style: none; scrollbar-width: none; }
+
+.qa-header {
+  padding: 14vh 10vw 6vh;
+}
+.qa-tag {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 10px; letter-spacing: .4em;
+  text-transform: uppercase; color: var(--mid);
+  margin-bottom: 16px;
+}
+.qa-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 200; font-style: italic;
+  line-height: 1.3; color: var(--black);
+}
+.qa-list {
+  padding: 0 10vw 20vh;
+  display: flex; flex-direction: column;
+  gap: 0;
+}
+.qa-item {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  gap: 0 20px;
+  padding: 40px 0;
+  border-top: 1px solid var(--light);
+}
+.qa-item:last-child { border-bottom: 1px solid var(--light); }
+.qa-type {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px; font-weight: 200; font-style: italic;
+  color: var(--mid);
+  padding-top: 2px;
+}
+.qa-type.answer { color: var(--accent); }
+.qa-content {}
+.qa-question {
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+  font-size: 14px; font-weight: 400;
+  letter-spacing: .08em; line-height: 1.9;
+  color: var(--black);
+  margin-bottom: 4px;
+}
+.qa-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px; letter-spacing: .2em;
+  color: var(--mid); margin-bottom: 8px;
+}
+.qa-answer {
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+  font-size: 14px; font-weight: 300;
+  letter-spacing: .06em; line-height: 2.1;
+  color: var(--mid);
+}
+
+/* ══════════════
    STICKY FOOTER
 ══════════════ */
+.h-wrap {
+  padding-bottom: 52px;
+}
 .sticky-footer {
   position: fixed;
   bottom: 0; left: 0; right: 0;
@@ -515,7 +602,7 @@ html, body {
 
   <!-- HERO -->
   <div class="panel panel-hero" data-dark="false">
-    <img class="hero-illust" src="assets/illust_side.jpg" alt="平屋イラスト">
+    <img class="hero-illust" src="assets/illust_side.png" alt="平屋イラスト">
     <div style="position:relative;z-index:1;">
       <p class="hero-brand">komai home</p>
     </div>
@@ -550,7 +637,7 @@ html, body {
       </div>
     </div>
     <div class="concept-right">
-      <img class="concept-illust" src="illust_parse.png" alt="パース">
+      <img class="concept-illust" src="assets/bokeh_mubyousokusai.jpg" alt="パース">
     </div>
   </div>
 
@@ -566,6 +653,19 @@ html, body {
     </div>
     <div class="process-steps" id="processSteps">
       <!-- JSで生成 -->
+    </div>
+  </div>
+
+  <!-- QA -->
+  <div class="panel panel-qa" data-dark="false" id="qaPanel">
+    <div class="qa-inner" id="qaInner">
+      <div class="qa-header">
+        <p class="qa-tag">Interview</p>
+        <h2 class="qa-title">お施主様に<br>聞いた<br>一問一答。</h2>
+      </div>
+      <div class="qa-list" id="qaList">
+        <!-- JSで生成 -->
+      </div>
     </div>
   </div>
 
@@ -622,6 +722,105 @@ const steps = [
   { num:'13', name:'完成',   date:'2026.07',  memo:'ついに完成です！完成後は美装を行います✨️<br>とても素敵なお家になりましたね👀🌱<br><br><br>', photo:'assets/20260703.png' },
   { num:'14', name:'外構工事',   date:'2026.08',  memo:'ｃｏｍｉｎｇ　ｓｏｏｎ．．．<br><br><br><br>', photo:'' },
 ];
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// ▼ 一問一答はここだけ編集
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+const qaItems = [
+  {
+    q: '家を建てたい🏚️！と思ったきっかけはなんですか？',
+    a: '',
+  },
+  {
+    q: 'こまいホームに建築を依頼しようと思った決め手をずばり！教えてください。',
+    a: '',
+  },
+  {
+    q: '出会ってから約１年、担当スタッフへ伝えたい想いをお知らせください😌',
+    a: '',
+  },
+  {
+    q: '完成した家をご覧になられた感想',
+    a: '',
+  },
+  {
+    q: 'これからご建築をお考えのお客様に向けて一言お願いします！💭',
+    a: '',
+  },
+];
+
+// ── 一問一答生成 ──
+const qaList = document.getElementById('qaList');
+qaItems.forEach((item, i) => {
+  const num = String(i + 1).padStart(2, '0');
+  // 質問
+  const qEl = document.createElement('div');
+  qEl.className = 'qa-item';
+  qEl.innerHTML = `
+    <div class="qa-type">Q</div>
+    <div class="qa-content">
+      <div class="qa-num">${num}</div>
+      <p class="qa-question">${item.q}</p>
+    </div>`;
+  qaList.appendChild(qEl);
+  // 回答
+  const aEl = document.createElement('div');
+  aEl.className = 'qa-item';
+  aEl.innerHTML = `
+    <div class="qa-type answer">A</div>
+    <div class="qa-content">
+      <p class="qa-answer">${item.a}</p>
+    </div>`;
+  qaList.appendChild(aEl);
+});
+
+// ── QAパネルの縦スクロール→横移行 ──
+const qaPanel = document.getElementById('qaPanel');
+const qaInner = document.getElementById('qaInner');
+
+function isInQaPanel() {
+  // 現在のスクロール位置がQAパネルにいるか
+  const rect = qaPanel.getBoundingClientRect();
+  return rect.left <= 10 && rect.right >= window.innerWidth - 10;
+}
+
+// QAパネル内のホイールを縦スクロールに切り替え
+window.addEventListener('wheel', e => {
+  if (!isInQaPanel()) return;
+  e.stopImmediatePropagation();
+  const scrollTop = qaInner.scrollTop;
+  const maxScroll = qaInner.scrollHeight - qaInner.clientHeight;
+
+  // 下端に達したら次のパネルへ
+  if (e.deltaY > 0 && scrollTop >= maxScroll - 8) {
+    snapTo(currentSnapIdx + 1);
+    return;
+  }
+  // 上端に達したら前のパネルへ
+  if (e.deltaY < 0 && scrollTop <= 0) {
+    snapTo(currentSnapIdx - 1);
+    return;
+  }
+  qaInner.scrollTop += e.deltaY;
+}, { capture: true });
+
+// タッチでQAパネル内は縦スクロール
+let qaTouch = false, qaTouchStartY = 0;
+qaPanel.addEventListener('touchstart', e => {
+  qaTouch = true;
+  qaTouchStartY = e.touches[0].clientY;
+}, { passive: true });
+qaPanel.addEventListener('touchmove', e => {
+  if (!qaTouch) return;
+  const dy = qaTouchStartY - e.touches[0].clientY;
+  const scrollTop = qaInner.scrollTop;
+  const maxScroll = qaInner.scrollHeight - qaInner.clientHeight;
+  if (dy > 0 && scrollTop >= maxScroll - 8) { snapTo(currentSnapIdx + 1); qaTouch = false; return; }
+  if (dy < 0 && scrollTop <= 0)             { snapTo(currentSnapIdx - 1); qaTouch = false; return; }
+  qaInner.scrollTop += dy * 0.5;
+  qaTouchStartY = e.touches[0].clientY;
+}, { passive: true });
+qaPanel.addEventListener('touchend', () => { qaTouch = false; });
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // ▼ ギャラリー写真はここだけ編集
@@ -736,29 +935,24 @@ let raf;
 let currentSnapIdx = 0;
 
 // 全スナップ位置を取得（パネル先頭 + 各カード）
-// スナップ位置を初期化時に一度だけ計算
-let snapPositions = [];
-function buildSnapPositions() {
-  snapPositions = [];
+function getSnapPositions() {
+  const positions = [];
   let accPanel = 0;
   panels.forEach(p => {
-    const header = p.querySelector('.process-header, .gallery-header');
-    const headerW = header ? header.offsetWidth : 0;
     const cards = p.querySelectorAll('.step, .g-photo');
     if (cards.length > 0) {
+      // カード左端が画面左端に来る位置
       cards.forEach(card => {
-        // カードのパネル内オフセット + パネルの累積位置 - ヘッダー幅
-        const pos = -(accPanel + card.offsetLeft - headerW);
-        snapPositions.push(pos);
+        positions.push(-(accPanel + card.offsetLeft));
       });
     } else {
-      snapPositions.push(-accPanel);
+      // HERO・CONCEPT・QAはパネル先頭位置
+      positions.push(-accPanel);
     }
     accPanel += p.offsetWidth;
   });
+  return positions;
 }
-
-function getSnapPositions() { return snapPositions; }
 
 function getMaxScroll() { return -(wrap.scrollWidth - window.innerWidth); }
 function lerp(a, b, t) { return a + (b - a) * t; }
@@ -808,12 +1002,10 @@ window.addEventListener('touchend', e => {
   }
 });
 
-window.addEventListener('resize', () => { buildSnapPositions(); snapTo(currentSnapIdx); });
-window.addEventListener('load',   () => { buildSnapPositions(); });
-// 画像ロード後も再計算（画像サイズが確定してoffsetLeftが安定する）
-document.querySelectorAll('img').forEach(img => {
-  img.addEventListener('load', buildSnapPositions);
-});
+window.addEventListener('resize', () => { snapTo(currentSnapIdx); });
+
+// セクションインジケーター
+// セクションインジケーター削除済み
 
 // カスタムカーソル
 const cursor = document.getElementById('cursor');
@@ -832,6 +1024,11 @@ document.addEventListener('mousemove', e => {
 document.querySelectorAll('button, .g-photo, .step').forEach(el => {
   el.addEventListener('mouseenter', () => cursor.classList.add('big'));
   el.addEventListener('mouseleave', () => cursor.classList.remove('big'));
+});
+
+// リサイズ
+window.addEventListener('resize', () => {
+  targetX = Math.max(getMaxScroll(), Math.min(0, targetX));
 });
 
 // Share
