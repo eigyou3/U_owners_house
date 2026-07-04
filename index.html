@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>YORISOU_IE — komai home</title>
+<title>YORISOU — komai home</title>
 <meta name="description" content="あなたの理想に、寄り添う家。YOU × 理想 ＝ YORISOU。komai homeが手がける平屋の記録。">
-<meta property="og:title" content="YORISOU_IE — komai home">
-<meta property="og:description" content="あなたの理想（想い）に、寄り添う家。">
+<meta property="og:title" content="YORISOU — komai home">
+<meta property="og:description" content="あなたの理想に、寄り添う家。">
 <meta property="og:image" content="https://eigyou3.github.io/U_owners_house/ogp.png">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
@@ -628,9 +628,16 @@ html, body {
         私たち家族が叶える理想の家づくり。
 
       </p>
+      <div class="concept-anagram">
+        <span class="anagram-you">YOU</span>
+        <span class="anagram-plus">+</span>
+        <span class="anagram-risou">RISŌ<br>理想</span>
+        <span class="anagram-eq">=</span>
+        <span class="anagram-result">YORISOU</span>
+      </div>
     </div>
     <div class="concept-right">
-      <img class="concept-illust" src="assets/bokeh_mubyousokusai.png" alt="">
+      <img class="concept-illust" src="assets/bokeh_mubyousokusai.jpg" alt="パース">
     </div>
   </div>
 
@@ -678,7 +685,7 @@ html, body {
 
 <!-- STICKY FOOTER -->
 <div class="sticky-footer">
-  <span class="footer-brand">YORISOU_IE</span>
+  <span class="footer-brand">YORISOU</span>
   <div class="footer-share">
     <button class="footer-share-btn" onclick="shareX()">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.253 5.622L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
@@ -808,10 +815,10 @@ qaPanel.addEventListener('touchmove', e => {
   const dy = qaTouchStartY - e.touches[0].clientY;
   const scrollTop = qaInner.scrollTop;
   const maxScroll = qaInner.scrollHeight - qaInner.clientHeight;
-  if (dy > 0 && scrollTop >= maxScroll - 8) { snapTo(currentSnapIdx + 1); qaTouch = false; return; }
-  if (dy < 0 && scrollTop <= 0)             { snapTo(currentSnapIdx - 1); qaTouch = false; return; }
-  qaInner.scrollTop += dy * 0.5;
-  qaTouchStartY = e.touches[0].clientY;
+  // 上下端に達したら次のパネルへ（横移動）
+  if (dy > 60 && scrollTop >= maxScroll - 8) { snapTo(currentSnapIdx + 1); qaTouch = false; return; }
+  if (dy < -60 && scrollTop <= 0)             { snapTo(currentSnapIdx - 1); qaTouch = false; return; }
+  // それ以外はブラウザの縦スクロールに任せる（qaInnerはoverflow-y:autoなので自然にスクロール）
 }, { passive: true });
 qaPanel.addEventListener('touchend', () => { qaTouch = false; });
 
@@ -836,7 +843,7 @@ const galleryPhotos = [
   { name:'リビング建具', memo:'LIXIL Lasissa-D Vintia-Series', src:'assets/dining.png' },
   { name:'TV裏造作', memo:'壁掛けのTV裏は大容量収納スペースに', src:'assets/finishing_carpenter.png' },
   { name:'玄関収納造作', memo:'外出時に使用したものは持ち込まない', src:'assets/finishing_carpenter2.png' },
-  { name:'Arigato', memo:'ご建築おめでとうございます✨️素敵なプレゼントありがとうございます♪', src:'assets/arigato.png' },
+  { name:'Arigato', memo:'ご建築おめでとうございます✨️', src:'assets/arigato.png' },
 ];
 
 // ── メディアヘルパー（拡張子で自動判定）──
@@ -953,9 +960,9 @@ function getSnapPositions() {
       const header = p.querySelector('.process-header, .gallery-header');
       const headerW = header ? header.offsetWidth : 0;
       const cardW = cards[0].offsetWidth;
-      // まずパネル先頭（ヘッダーが見える位置）
+      // パネル先頭（ヘッダーが見える位置）
       positions.push(-accPanel);
-      // 次に各カード（ヘッダー右端 + カード幅×枚数）
+      // 各カード左端
       cards.forEach((card, i) => {
         positions.push(-(accPanel + headerW + cardW * i));
       });
@@ -1006,8 +1013,14 @@ window.addEventListener('touchstart', e => {
   touchStartX = e.touches[0].clientX;
   touchStartY = e.touches[0].clientY;
 }, { passive: true });
-window.addEventListener('touchmove', e => { e.preventDefault(); }, { passive: false });
+window.addEventListener('touchmove', e => {
+  // QAパネル内は縦スクロールを邪魔しない
+  if (isInQaPanel()) return;
+  e.preventDefault();
+}, { passive: false });
 window.addEventListener('touchend', e => {
+  // QAパネル内は横スワイプを無視
+  if (isInQaPanel()) return;
   const dx = e.changedTouches[0].clientX - touchStartX;
   const dy = e.changedTouches[0].clientY - touchStartY;
   if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
@@ -1016,9 +1029,6 @@ window.addEventListener('touchend', e => {
 });
 
 window.addEventListener('resize', () => { snapTo(currentSnapIdx); });
-
-// セクションインジケーター
-// セクションインジケーター削除済み
 
 // カスタムカーソル
 const cursor = document.getElementById('cursor');
