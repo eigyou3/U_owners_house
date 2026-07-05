@@ -624,7 +624,7 @@ html, body {
         寄り添う住まい。<br>
         <br>
         家族の気配がいつでも感じられる距離。<br>
-        これが私のちょうどいい、<br>
+        これが私たちにぴったりの、<br>
         私たち家族が叶える理想の家づくり。
 
       </p>
@@ -637,7 +637,7 @@ html, body {
       </div>
     </div>
     <div class="concept-right">
-      <img class="concept-illust" src="assets/bokeh_mubyousokusai.png" alt="">
+      <img class="concept-illust" src="assets/omoide.png" alt="">
     </div>
   </div>
 
@@ -662,6 +662,7 @@ html, body {
       <div class="qa-header">
         <p class="qa-tag">Interview</p>
         <h2 class="qa-title">お施主様に<br>聞いた<br>一問一答。</h2>
+        <p style="margin-top:20px;font-size:11px;color:var(--mid);letter-spacing:.08em;line-height:1.8;">※ お施主様よりいただいた回答を、原文のまま掲載しております。</p>
       </div>
       <div class="qa-list" id="qaList">
         <!-- JSで生成 -->
@@ -729,23 +730,50 @@ const steps = [
 const qaItems = [
   {
     q: '家を建てたい🏚️！と思ったきっかけはなんですか？',
-    a: '',
+    a: '家族が増え、今の住まいが手狭になったことがきっかけです。<br><br>\
+        中古住宅や賃貸も検討しましたが、希望する広さや綺麗さを求めると家賃は月10万円以上。\
+        それならマイホームを建てたいと思うようになりました。<br><br>\
+        年齢のことも考え、「まずは住宅ローンの審査から」と行動を始めました。',
   },
   {
     q: 'こまいホームに建築を依頼しようと思った決め手をずばり！教えてください。',
-    a: '',
+    a: '最初はハウスメーカー3社や住宅展示場を見学しましたが、予算内で希望を叶えるのは難しいと感じていました。<br><br>\
+        そこで工務店にも相談してみようと思い、5社へ同じ内容で問い合わせを送ったところ、\
+        ひときわ親身で温かく、人柄が伝わる返信をくださったのが、担当の森木さんでした。<br><br>\
+        要望を一つひとつ丁寧に聞いてくださり、唯一「資金計画表」を作成していただけたことで、\
+        借入と返済のイメージが明確になり、「家づくりが現実になるかもしれない」と感じることができました。<br><br>\
+        見学したモデルハウスでは、キッチンの黒のマット水栓やライン照明、洗面台、寝室の間接照明など細部まで好みが詰まっていて、\
+        こまいホームならではのこだわりにも惹かれ、「ここで建てたい」と自然に思えるようになりました。',
   },
   {
     q: '出会ってから約１年、担当スタッフへ伝えたい想いをお知らせください😌',
-    a: '',
+    a: '森木さんと出会っていなければ、私たちは家を建てていなかったと思います。<br><br>\
+        何度もLINEで質問を送り、そのたびに丁寧に対応していただきました。<br><br>\
+        人気の土地で迷っていた時には、雪の降る夕方にも現地まで足を運んでくださり、その行動力と親身な対応に夫婦ともに感動しました。<br><br>\
+        家づくりだけでなく、さまざまな相談にも乗っていただき、本当に心強い存在でした。<br><br>\
+        本当にありがとうございました。<br>\
+        これからも末永くよろしくお願いします！！<br><br>\
+        <span style="color:var(--accent);font-style:italic;">── こちらこそ、よろしくお願いします😭✨️</span>`,',
   },
   {
     q: '完成した家をご覧になられた感想',
-    a: '',
+    a: '子どもを寝かしつけた後、一人で何度も調べて悩みながら思い描いていた理想の暮らしが、ようやく現実になりました。<br><br>\
+        正直、今でも夢のようです。<br><br>\
+        インテリアには自信があっても、家づくりは想像以上に難しく、SNSの情報量に迷うこともたくさんありました。<br><br>\
+        そんな時、戸松さんと森木さんが何度も軌道修正してくださり、その言葉を信じて本当に良かったと思っています。<br><br>\
+        完成した家は「本当にかっこいい」と自信を持って言える、唯一無二の住まいになりました。<br><br>\
+        森木さんと一緒に選んだ外壁は、私達夫婦の一番のお気に入りです。',
   },
   {
     q: 'これからご建築をお考えのお客様に向けて一言お願いします！💭',
-    a: '',
+    a: '美味しいものも「誰と食べるか」、旅行も「誰と行くか」で満足度は大きく変わると思います。<br><br>\
+        家づくりも同じで、「どこで建てるか」より「誰と建てるか」が本当に大切だと感じました。<br><br>\
+        森木さん、戸松さんとの打ち合わせは、失敗する気がしないほど安心感がありました。<br><br>\
+        さらに、専属の大工さんや現場監督の皆さんも本当に頼もしく、\
+        「安心してください」と笑顔で声を掛けてくださったことが今でも印象に残っています。<br><br>\
+        社員の皆さんが一丸となって私たちの家づくりを支えてくださり、本当に感謝しています。<br><br>\
+        SNSで施工事例や口コミが多くなくても、広告ではなく、お施主様とのつながりを大切にし、\
+        「建てて終わり」ではない関係を築いているこまいホームだからこそ、安心して家づくりを任せることができました。',
   },
 ];
 
@@ -1007,24 +1035,29 @@ window.addEventListener('wheel', e => {
   }
 }, { passive: false });
 
-// タッチ — 1スワイプで1スナップ
+// タッチ — 1スワイプで1スナップ（縦でも横でも移動）
 let touchStartX = 0, touchStartY = 0;
 window.addEventListener('touchstart', e => {
   touchStartX = e.touches[0].clientX;
   touchStartY = e.touches[0].clientY;
 }, { passive: true });
 window.addEventListener('touchmove', e => {
-  // QAパネル内は縦スクロールを邪魔しない
   if (isInQaPanel()) return;
   e.preventDefault();
 }, { passive: false });
 window.addEventListener('touchend', e => {
-  // QAパネル内は横スワイプを無視
   if (isInQaPanel()) return;
   const dx = e.changedTouches[0].clientX - touchStartX;
   const dy = e.changedTouches[0].clientY - touchStartY;
-  if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
-    snapTo(currentSnapIdx + (dx < 0 ? 1 : -1));
+  const adx = Math.abs(dx);
+  const ady = Math.abs(dy);
+  // 横スワイプ or 縦スワイプ、どちらも横移動に変換
+  if (adx > 40 || ady > 40) {
+    // 左or下 → 次へ、右or上 → 前へ
+    const forward = dx < -40 || dy < -40;
+    const back    = dx > 40  || dy > 40;
+    if (forward) snapTo(currentSnapIdx + 1);
+    else if (back) snapTo(currentSnapIdx - 1);
   }
 });
 
