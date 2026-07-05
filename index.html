@@ -80,8 +80,8 @@ html, body {
   background: var(--white);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 8vh 8vw;
+  justify-content: flex-start;
+  padding: 10vh 8vw 72px;
   overflow: hidden;
 }
 .hero-illust {
@@ -162,10 +162,10 @@ html, body {
 }
 .concept-title {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(36px, 5vw, 60px);
+  font-size: clamp(22px, 4vw, 48px);
   font-weight: 200; font-style: italic;
-  line-height: 1.2; color: #fff;
-  margin-bottom: 36px;
+  line-height: 1.25; color: #fff;
+  margin-bottom: 28px;
 }
 .concept-title em { color: var(--accent); font-style: normal; }
 .concept-body {
@@ -307,19 +307,22 @@ html, body {
   font-size: 72px; font-weight: 200;
   color: var(--light);
   line-height: 1;
-  padding: 10vh 10vw 0;
+  padding: 5vh 10vw 0;
+  flex-shrink: 0;
 }
 .step-photo {
-  width: 100%; height: 45vh;
+  width: 100%; height: 42vh;
   object-fit: cover;
   filter: grayscale(30%);
   transition: filter .4s;
+  flex-shrink: 0;
 }
 .step:hover .step-photo { filter: grayscale(0); }
 .step-ph {
-  width: 100%; height: 45vh;
+  width: 100%; height: 42vh;
   background: linear-gradient(135deg, var(--light) 0%, var(--off) 100%);
   display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
 }
 .step-ph span {
   font-family: 'Cormorant Garamond', serif;
@@ -327,9 +330,11 @@ html, body {
   text-transform: uppercase; color: var(--mid);
 }
 .step-body {
-  padding: 4vh 10vw 8vh;
-  flex: 1; display: flex; flex-direction: column;
+  padding: 3vh 10vw 4vh;
+  flex-shrink: 0;
+  display: flex; flex-direction: column;
   justify-content: flex-start;
+  overflow: hidden;
 }
 .step-date {
   font-family: 'Cormorant Garamond', serif;
@@ -467,7 +472,7 @@ html, body {
 .qa-inner { -ms-overflow-style: none; scrollbar-width: none; }
 
 .qa-header {
-  padding: 14vh 10vw 6vh;
+  padding: 10vh 5vw 4vh;
 }
 .qa-tag {
   font-family: 'Cormorant Garamond', serif;
@@ -482,15 +487,15 @@ html, body {
   line-height: 1.3; color: var(--black);
 }
 .qa-list {
-  padding: 0 10vw 20vh;
+  padding: 0 5vw 50vh;
   display: flex; flex-direction: column;
   gap: 0;
 }
 .qa-item {
   display: grid;
-  grid-template-columns: 2.5rem 1fr;
-  gap: 0 20px;
-  padding: 40px 0;
+  grid-template-columns: 2rem 1fr;
+  gap: 0 14px;
+  padding: 32px 0;
   border-top: 1px solid var(--light);
 }
 .qa-item:last-child { border-bottom: 1px solid var(--light); }
@@ -624,17 +629,10 @@ html, body {
         寄り添う住まい。<br>
         <br>
         家族の気配がいつでも感じられる距離。<br>
-        これが私たちにぴったりの、<br>
+        これが私のちょうどいい、<br>
         私たち家族が叶える理想の家づくり。
 
       </p>
-      <div class="concept-anagram">
-        <span class="anagram-you">YOU</span>
-        <span class="anagram-plus">+</span>
-        <span class="anagram-risou">RISŌ<br>理想</span>
-        <span class="anagram-eq">=</span>
-        <span class="anagram-result">YORISOU</span>
-      </div>
     </div>
     <div class="concept-right">
       <img class="concept-illust" src="assets/omoide.png" alt="">
@@ -662,7 +660,6 @@ html, body {
       <div class="qa-header">
         <p class="qa-tag">Interview</p>
         <h2 class="qa-title">お施主様に<br>聞いた<br>一問一答。</h2>
-        <p style="margin-top:20px;font-size:11px;color:var(--mid);letter-spacing:.08em;line-height:1.8;">※ お施主様よりいただいた回答を、原文のまま掲載しております。</p>
       </div>
       <div class="qa-list" id="qaList">
         <!-- JSで生成 -->
@@ -854,20 +851,25 @@ qaPanel.addEventListener('touchend', () => { qaTouch = false; });
 // ▼ ギャラリー写真はここだけ編集
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 const galleryPhotos = [
+  { name:'ポーチ', memo:'IG工業 ヘアリナ / 東レ リアルデ', src:'assets/pouch.png' },
   { name:'インターホン', memo:'NASTA INTERPHONE 2', src:'assets/nasta2.png' },
-  { name:'ホール', memo:'TOWARDS Glanz Wall Light / Black', src:'assets/hall.png' },
+  { name:'ホール', memo:'LIXIL VINTIA 下駄箱収納', src:'assets/shoes_closet.png' },
   { name:'框', memo:'森田アルミ工業 CAMIS', src:'assets/camis.png' },
   { name:'ホール扉', memo:'LIXIL Raffis', src:'assets/raffis.png' },
+  { name:'ホール', memo:'TOWARDS Glanz Wall Light / Black', src:'assets/hall.png' },
   { name:'配線ニッチ', memo:'Panasonic ADVANCE SERIES', src:'assets/advance.png' },
   { name:'キッチン水栓', memo:'GROHE グースネック浄水栓', src:'assets/grohe.png' },
+  { name:'キッチンガスコンロ', memo:'三菱 ユーロスタイルIH', src:'assets/gasukonnro.png' },
   { name:'キッチン', memo:'LIXIL Noct26 リテックス', src:'assets/noct.png' },
   { name:'キッチン食洗機', memo:'Panasonic フロントオープンタイプ', src:'assets/dishwasher.png' },
-  { name:'照明', memo:'DAIKO SpotLight', src:'assets/lighting.png' },
+  { name:'照明', memo:'ODELIC SpotLight', src:'assets/lighting.png' },
   { name:'洗面化粧台', memo:'LIXIL カスタムバニティ', src:'assets/washroom.png' },
   { name:'浴室', memo:'LIXIL リデアM', src:'assets/bathroom.png' },
   { name:'給湯器リモコン', memo:'Rinnai Color332タイプ / Black', src:'assets/rinnai.png' },
   { name:'食器収納', memo:'南海プライウッド フリモ', src:'assets/fremo.png' },
   { name:'主寝室', memo:'Panasonic マイスターウッド突板', src:'assets/bedroom.png' },
+  { name:'WC 照明', memo:'テトラ SMART CHANDELIER', src:'assets/wclighting.png' },
+  { name:'WC', memo:'Panasonic アラウーノS', src:'assets/arau-no.png' },
   { name:'リビング建具', memo:'LIXIL Lasissa-D Vintia-Series', src:'assets/dining.png' },
   { name:'TV裏造作', memo:'壁掛けのTV裏は大容量収納スペースに', src:'assets/finishing_carpenter.png' },
   { name:'玄関収納造作', memo:'外出時に使用したものは持ち込まない', src:'assets/finishing_carpenter2.png' },
@@ -1035,29 +1037,24 @@ window.addEventListener('wheel', e => {
   }
 }, { passive: false });
 
-// タッチ — 1スワイプで1スナップ（縦でも横でも移動）
+// タッチ — 1スワイプで1スナップ
 let touchStartX = 0, touchStartY = 0;
 window.addEventListener('touchstart', e => {
   touchStartX = e.touches[0].clientX;
   touchStartY = e.touches[0].clientY;
 }, { passive: true });
 window.addEventListener('touchmove', e => {
+  // QAパネル内は縦スクロールを邪魔しない
   if (isInQaPanel()) return;
   e.preventDefault();
 }, { passive: false });
 window.addEventListener('touchend', e => {
+  // QAパネル内は横スワイプを無視
   if (isInQaPanel()) return;
   const dx = e.changedTouches[0].clientX - touchStartX;
   const dy = e.changedTouches[0].clientY - touchStartY;
-  const adx = Math.abs(dx);
-  const ady = Math.abs(dy);
-  // 横スワイプ or 縦スワイプ、どちらも横移動に変換
-  if (adx > 40 || ady > 40) {
-    // 左or下 → 次へ、右or上 → 前へ
-    const forward = dx < -40 || dy < -40;
-    const back    = dx > 40  || dy > 40;
-    if (forward) snapTo(currentSnapIdx + 1);
-    else if (back) snapTo(currentSnapIdx - 1);
+  if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+    snapTo(currentSnapIdx + (dx < 0 ? 1 : -1));
   }
 });
 
