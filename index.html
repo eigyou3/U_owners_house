@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>YORISOU_IE — komai home</title>
-<meta name="description" content="あなたの理想に、寄り添う家。komai homeが手がける平屋の記録。">
+<meta name="description" content="あなたの理想に、寄り添う家。YOU × 理想 ＝ YORISOU。komai homeが手がける平屋の記録。">
 <meta property="og:title" content="YORISOU_IE — komai home">
 <meta property="og:description" content="あなたの理想に、寄り添う家。">
 <meta property="og:image" content="https://eigyou3.github.io/U_owners_house/ogp.png">
@@ -592,6 +592,13 @@ html, body {
 .sec-dot.active { background: var(--black); transform: scale(1.8); }
 .dark-bg .sec-dot { background: rgba(255,255,255,.2); }
 .dark-bg .sec-dot.active { background: #fff; }
+
+img, video {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  user-select: none;
+}
 </style>
 </head>
 <body>
@@ -678,6 +685,16 @@ html, body {
     </div>
   </div>
 
+  <!-- SECRET -->
+  <div class="panel panel-gimmick" data-dark="true" style="width: 100vw; height: 100vh; background: #000; display: flex; align-items: center; justify-content: center; flex-direction: column; position: relative; overflow: hidden;">
+    
+    <div id="secretInputWrap" style="z-index: 10; text-align: center; transition: opacity 0.5s ease;">
+      <p style="color: rgba(255,255,255,0.4); font-size: 12px; margin-bottom: 20px; letter-spacing: 0.3em; font-family: 'Cormorant Garamond', serif;">SECRET</p>
+      <input type="text" id="secretInput" placeholder="Keyword" style="background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.2); color: #fff; font-size: 16px; text-align: center; padding: 10px; outline: none; font-family: 'Zen Kaku Gothic New', sans-serif; letter-spacing: 0.1em; width: 200px; transition: border-color 0.3s;">
+    </div>
+    
+    <video id="secretVideo" src="assets/S2.umemoto-ke.S2.mp4" playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; pointer-events: none; transition: opacity 1s ease;"></video>
+  </div>
 </div>
 
 <!-- STICKY FOOTER -->
@@ -1091,6 +1108,37 @@ function copyLink(){
     const l = document.getElementById('copyLabel');
     l.textContent = 'COPIED!';
     setTimeout(()=>{ l.textContent = 'COPY'; }, 2000);
+  });
+}
+
+// ▼ PCでの右クリック・スマホ長押し保存防止 ▼
+document.addEventListener('contextmenu', e => {
+  if (e.target.tagName === 'IMG' || e.target.tagName === 'VIDEO') {
+    e.preventDefault();
+  }
+});
+
+// ▼ テキスト入力で動画が再生されるギミック ▼
+const secretInput = document.getElementById('secretInput');
+const secretInputWrap = document.getElementById('secretInputWrap');
+const secretVideo = document.getElementById('secretVideo');
+
+// SECRET_HTMLが読める人、気を使ってね
+const SECRET_KEYWORD = "UMEMOTO_KE"; 
+
+if (secretInput && secretVideo) {
+  secretInput.addEventListener('input', (e) => {
+    if (e.target.value.toLowerCase() === SECRET_KEYWORD.toLowerCase()) {
+      // 動画を表示して再生
+      secretVideo.style.opacity = '1';
+      secretVideo.play();
+      
+      // 入力欄とその周りの文字を綺麗に消す
+      if (secretInputWrap) {
+        secretInputWrap.style.opacity = '0';
+        secretInputWrap.style.pointerEvents = 'none';
+      }
+    }
   });
 }
 </script>
