@@ -1180,11 +1180,16 @@ const SECRET_KEYWORD = "UMEMOTO_KE";
 if (secretInput && secretVideo) {
   secretInput.addEventListener('input', (e) => {
     if (e.target.value.toLowerCase() === SECRET_KEYWORD.toLowerCase()) {
-      // 動画を表示して再生
+      secretVideo.loop = true;
+      secretVideo.muted = true;
       secretVideo.style.opacity = '1';
-      secretVideo.play();
-      
-      // 入力欄とその周りの文字を綺麗に消す
+      secretVideo.style.pointerEvents = 'none';
+      secretVideo.play().catch(() => {});
+      // loopが効かない環境用のフォールバック
+      secretVideo.addEventListener('ended', () => {
+        secretVideo.currentTime = 0;
+        secretVideo.play().catch(() => {});
+      });
       if (secretInputWrap) {
         secretInputWrap.style.opacity = '0';
         secretInputWrap.style.pointerEvents = 'none';
